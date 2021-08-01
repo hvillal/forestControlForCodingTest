@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "a09e88fb-2c07-4fe9-a2fc-725e6b9998d5",
+		"name": "ForestControlAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Drone 1st Request - Final positions OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"drones' final position\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].finalPosition).to.eql(\"3 3 N\");\r",
+							"    pm.expect(jsonData[1].finalPosition).to.eql(\"5 1 E\");\r",
+							"    pm.expect(jsonData[2].finalPosition).to.eql(\"1 4 N\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"area\": \"5 5\",\r\n    \"drones\": [\r\n        {\r\n            \"initialPosition\": \"3 3 E\",\r\n            \"actions\": \"L\"\r\n        },\r\n        {\r\n            \"initialPosition\": \"3 3 E\",\r\n            \"actions\": \"MMRMMRMRRM\"\r\n        },\r\n        {\r\n            \"initialPosition\": \"1 2 N\",\r\n            \"actions\": \"LMLMLMLMMLMLMLMLMM\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/drone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"drone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drone 2nd Request - Final positions OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"drones' final position\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].finalPosition).to.eql(\"2 2 E\");\r",
+							"    pm.expect(jsonData[1].finalPosition).to.eql(\"3 3 E\");\r",
+							"    pm.expect(jsonData[2].finalPosition).to.eql(\"0 0 W\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"area\": \"8 8\",\r\n    \"drones\": [\r\n        {\r\n            \"initialPosition\": \"0 0 N\",\r\n            \"actions\": \"MMRMM\"\r\n        },\r\n        {\r\n            \"initialPosition\": \"0 0 E\",\r\n            \"actions\": \"MMLMMMRM\"\r\n        },\r\n        {\r\n            \"initialPosition\": \"0 0 N\",\r\n            \"actions\": \"MMMMMMMMRMMMMMMMMRMMMMMMMMRMMMMMMMM\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/drone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"drone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drone 3rd Request - Out of perimeter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"area\": \"1 1\",\r\n    \"drones\": [\r\n        {\r\n            \"initialPosition\": \"0 0 N\",\r\n            \"actions\": \"MMRMM\"\r\n        },\r\n        {\r\n            \"initialPosition\": \"0 0 E\",\r\n            \"actions\": \"MMLMMMRM\"\r\n        },\r\n        {\r\n            \"initialPosition\": \"0 0 N\",\r\n            \"actions\": \"MMMMMMMMRMMMMMMMMRMMMMMMMMRMMMMMMMM\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/drone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"drone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Drone 4th Request - Wrong drone´s initial position",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"area\": \"6 6\",\r\n    \"drones\": [\r\n        {\r\n            \"initialPosition\": \"0 0 X\",\r\n            \"actions\": \"MMRMM\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/drone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"drone"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

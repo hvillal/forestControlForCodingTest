@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ForestControl</name>
+    </assembly>
+    <members>
+        <member name="M:FirstAPI.Controllers.DronesController.Get(FirstAPI.Models.ForestControl)">
+            <summary>
+            Process information submitted about perimeter and drones.  
+            </summary>
+            <param name="forestControl">Information about perimeter, and for drones: initial position and actions.</param>
+            <returns>Final position of each drone.</returns>
+            <remarks>
+            Area: Perimeter (Width x Height). \
+            InitialPosition: Set the initial position of drone (X Y Cardinal direction). \
+            Actions: Rotate o move forward. \
+            \
+            Actions availables for drones: \
+            L => Rotate to the left \
+            R => Rotate to the right \
+            M => Move forward \
+            \
+            Sample request \
+            POST
+            [ 
+                { 
+                    "area": "5 5",
+                    "drones": [
+                        {
+                            "initialPosition": "3 3 E",
+                            "actions": "L"
+                        },
+                        {
+                            "initialPosition": "3 3 E",
+                            "actions": "MMRMMRMRRM"
+                        }
+                }
+            ]
+            </remarks>
+        </member>
+        <member name="T:FirstAPI.Models.ForestControl">
+            <summary>
+            Contains information about perimeter and drones
+            </summary>
+        </member>
+        <member name="P:FirstAPI.Models.ForestControl.Area">
+            <summary>
+            Perimeter for drones
+            </summary>
+        </member>
+        <member name="P:FirstAPI.Models.ForestControl.Drones">
+            <summary>
+            Drones' information
+            </summary>
+        </member>
+        <member name="M:FirstAPI.Services.DroneResources.ProcessDronesInstructions(FirstAPI.Models.ForestControl)">
+            <summary>
+            Main method that moves drones inside the perimeter according to the received instructions.
+            Drones can move forward, turn to the left and to the right, and they cannot flight outside the perimeter.
+            </summary>
+            <param name="forestControl"></param>
+            <returns>A list of drones with their final location.</returns>
+        </member>
+    </members>
+</doc>
